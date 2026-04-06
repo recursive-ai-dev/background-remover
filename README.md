@@ -73,7 +73,7 @@ pip install pillow numpy scipy scikit-learn scikit-image
 ### Interactive TUI (Terminal User Interface)
 Launch without arguments for the full interactive mode:
 ```bash
-python bg_remover_v2.py
+python bg_remover.py
 ```
 
 **Controls:**

@@ -182,4 +182,3 @@ MIT License - See LICENSE file for details.
 ---
 
 **Note on Mathematical Rigor:** All vectorized operations use `float64` precision for XYZ/LAB conversions to prevent catastrophic cancellation during matrix multiplication. The SDF implementation uses exact integer arithmetic for parabola intersection calculations before final square root extraction.
-```

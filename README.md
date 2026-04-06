@@ -1,9 +1,5 @@
 ```markdown
-# Precision Background Remover v2
-
-[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Mathematics: Verified](https://img.shields.io/badge/math-verified-critical.svg)]()
+# Background Remover
 
 A mathematically rigorous background removal engine featuring perceptually uniform color spaces, exact Euclidean distance transforms, and lock-free parallel processing.
 

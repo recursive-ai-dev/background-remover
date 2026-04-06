@@ -1,4 +1,3 @@
-```markdown
 # Background Remover
 
 A mathematically rigorous background removal engine featuring perceptually uniform color spaces, exact Euclidean distance transforms, and lock-free parallel processing.

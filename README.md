@@ -1,4 +1,4 @@
-# Background Remover
+# Precision Background Remover
 
 A mathematically rigorous background removal engine featuring perceptually uniform color spaces, exact Euclidean distance transforms, and lock-free parallel processing.
 
@@ -86,12 +86,12 @@ python bg_remover.py
 
 **Basic removal (white background):**
 ```bash
-python bg_remover_v2.py input.png output.png --color "255,255,255"
+python bg_remover.py input.png output.png --color "255,255,255"
 ```
 
 **Perceptual matching with feathering:**
 ```bash
-python bg_remover_v2.py photo.jpg output.png \
+python bg_remover.py photo.jpg output.png \
   --color "0,255,0" \
   --tolerance 5.0 \
   --feather 3 \
@@ -101,7 +101,7 @@ python bg_remover_v2.py photo.jpg output.png \
 
 **Parallel batch processing:**
 ```bash
-python bg_remover_v2.py ./input_dir ./output_dir \
+python bg_remover.py ./input_dir ./output_dir \
   --batch \
   --workers 8 \
   --color "255,255,255" \
@@ -112,7 +112,7 @@ python bg_remover_v2.py ./input_dir ./output_dir \
 
 **Auto-detect dominant colors:**
 ```bash
-python bg_remover_v2.py --detect input.jpg
+python bg_remover.py --detect input.jpg
 ```
 
 ---

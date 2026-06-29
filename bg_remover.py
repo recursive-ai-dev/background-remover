@@ -68,7 +68,7 @@ def _srgb_to_linear(rgb: np.ndarray) -> np.ndarray:
 
 def _linear_to_xyz(linear_rgb: np.ndarray) -> np.ndarray:
     """Linear RGB → XYZ tristimulus values."""
-    return np.dot(linear_rgb, _SRGB_TO_XYZ.T)
+    return np.dot(linear_rgb, _SRGB_TO_XYZ.T) * 100.0
 
 
 def _xyz_to_cielab(xyz: np.ndarray) -> np.ndarray:
@@ -121,30 +121,49 @@ def _edt_1d(f: np.ndarray) -> np.ndarray:
     Algorithm: Felzenszwalb & Huttenlocher, 2012. O(N) time.
     """
     n = len(f)
-    k = 0
     v = np.zeros(n, dtype=np.int64)
     z = np.zeros(n + 1, dtype=np.float64)
+
+    # Find first finite element
+    first_finite = 0
+    while first_finite < n and np.isinf(f[first_finite]):
+        first_finite += 1
+    if first_finite == n:
+        return np.full(n, np.inf)
+
+    v[0] = first_finite
     z[0] = -np.inf
     z[1] = np.inf
+    k = 0
     
-    for q in range(1, n):
-        # Compute intersection
-        s = ((f[q] + q**2) - (f[v[k]] + v[k]**2)) / (2.0 * (q - v[k]))
-        while s <= z[k]:
-            k -= 1
+    for q in range(first_finite + 1, n):
+        if np.isinf(f[q]):
+            continue
+
+        while True:
             s = ((f[q] + q**2) - (f[v[k]] + v[k]**2)) / (2.0 * (q - v[k]))
-        k += 1
-        v[k] = q
-        z[k] = s
-        z[k+1] = np.inf
-    
+            if s <= z[k]:
+                k -= 1
+                if k < 0:
+                    k = 0
+                    v[0] = q
+                    z[0] = -np.inf
+                    z[1] = np.inf
+                    break
+            else:
+                k += 1
+                v[k] = q
+                z[k] = s
+                z[k+1] = np.inf
+                break
+
     k = 0
     d = np.zeros(n, dtype=np.float64)
     for q in range(n):
         while z[k+1] < q:
             k += 1
         d[q] = (q - v[k])**2 + f[v[k]]
-    
+
     return d
 
 
